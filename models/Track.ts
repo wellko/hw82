@@ -2,7 +2,6 @@ import mongoose, {Types} from "mongoose";
 import Album from "./Album";
 
 const Schema = mongoose.Schema;
-
 const TrackSchema = new Schema({
     name: {
         type: String,
@@ -21,7 +20,6 @@ const TrackSchema = new Schema({
         }
     }
 });
-
 
 const Track = mongoose.model('Track', TrackSchema);
 

@@ -24,27 +24,21 @@ albumRouter.post('/', imagesUpload.single('photo'), async (req, res) => {
 
 albumRouter.get('/', async (req, res) => {
     const queryArtist = req.query.artist as string;
+    let findParams = {};
     if (queryArtist) {
-        try {
-            const albums = await album.find({artist: queryArtist})
-            return res.send(albums);
-        } catch {
-            return res.sendStatus(500);
-        }
-    } else {
-        try {
-            const albums = await album.find()
-            return res.send(albums);
-        } catch {
-            return res.sendStatus(500);
-        }
+        findParams = {artist: queryArtist}
+    }
+    try {
+        const albums = await album.find(findParams)
+        return res.send(albums);
+    } catch {
+        return res.sendStatus(500);
     }
 });
 
 albumRouter.get('/:id', async (req, res) => {
     try {
         const albums = await album.find({_id: req.params.id}).populate('artist', 'name info photo')
-        console.log(albums)
         return res.send(albums);
     } catch {
         return res.sendStatus(500);

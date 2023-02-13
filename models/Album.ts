@@ -2,7 +2,6 @@ import mongoose, {Types} from "mongoose";
 import Artist from "./Artist";
 
 const Schema = mongoose.Schema;
-
 const AlbumSchema = new Schema({
     name: {
         type: String,
@@ -25,7 +24,6 @@ const AlbumSchema = new Schema({
         }
     }
 });
-
 
 const Album = mongoose.model('Album', AlbumSchema);
 

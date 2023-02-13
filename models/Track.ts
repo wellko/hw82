@@ -8,10 +8,6 @@ const TrackSchema = new Schema({
         type: String,
         required: true
     },
-    year: {
-        type: String,
-        required: true,
-    },
     duration: {
         type: String,
     },

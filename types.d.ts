@@ -10,9 +10,18 @@ export interface AlbumData{
     year: string,
     artist: string,
 }
+
 export interface TrackData{
     name: string,
     album: string,
     duration: string,
     year: string,
+}
+
+export interface findAlbumData extends AlbumData {
+    artist: ArtistData
+}
+
+export interface findData extends TrackData {
+    album: findAlbumData;
 }

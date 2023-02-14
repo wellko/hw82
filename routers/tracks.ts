@@ -1,6 +1,8 @@
 import express from "express";
-import {TrackData} from "../types";
+import {ArtistData, findData, TrackData} from "../types";
 import Track from "../models/Track";
+import artist from "../models/Artist";
+import Artist from "../models/Artist";
 
 const trackRouter = express.Router();
 
@@ -21,6 +23,22 @@ trackRouter.post('/', async (req, res) => {
 })
 
 trackRouter.get('/', async (req, res) => {
+    const queryArtist = req.query.artist as string;
+
+    if (queryArtist) {
+        const artistData = await Artist.find({_id: queryArtist}) as ArtistData[];
+        const artistName = artistData[0].name
+        const tracksByArtist = await Track.find().populate({
+            path: 'album',
+            populate: {
+                path: 'artist'
+            }
+        }) as findData[]
+        const response = tracksByArtist.filter(track => track.album.artist.name === artistName);
+        return res.send(response)
+    }
+
+
     const queryAlbum = req.query.album as string;
     let findParams = {};
     if (queryAlbum) {

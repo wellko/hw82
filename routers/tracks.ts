@@ -26,6 +26,7 @@ trackRouter.get('/', async (req, res) => {
     const queryArtist = req.query.artist as string;
 
     if (queryArtist) {
+        try {
         const artistData = await Artist.find({_id: queryArtist}) as ArtistData[];
         const artistName = artistData[0].name
         const tracksByArtist = await Track.find().populate({
@@ -35,7 +36,10 @@ trackRouter.get('/', async (req, res) => {
             }
         }) as findData[]
         const response = tracksByArtist.filter(track => track.album.artist.name === artistName);
-        return res.send(response)
+        return res.send(response) }
+        catch {
+            return res.sendStatus(500);
+        }
     }
 
 

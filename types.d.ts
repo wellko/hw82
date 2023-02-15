@@ -25,3 +25,9 @@ export interface findAlbumData extends AlbumData {
 export interface findData extends TrackData {
     album: findAlbumData;
 }
+
+export interface IUser {
+    username: string;
+    password: string;
+    token: string;
+}

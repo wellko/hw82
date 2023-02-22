@@ -9,7 +9,7 @@ const trackRouter = express.Router();
 trackRouter.post('/', async (req, res) => {
     const newTrackData: TrackData = {
         name: req.body.name,
-        duration: req.body.duration ? req.body.duration : '',
+        duration: req.body.duration,
         album: req.body.album,
         year: req.body.year,
     }

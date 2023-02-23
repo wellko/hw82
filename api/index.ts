@@ -8,7 +8,9 @@ import usersRouter from "./routers/users";
 import trackHistoryRouter from "./routers/trackHistory";
 import config from "./config";
 
+
 const app = express();
+app.use(express.static('public'));
 app.use(cors());
 const port = 8000;
 app.use(express.json());

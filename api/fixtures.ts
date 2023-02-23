@@ -5,6 +5,7 @@ import Album from "./models/Album";
 import Track from "./models/Track";
 
 const run = async () => {
+	mongoose.set('strictQuery', false);
 	await mongoose.connect(config.db);
 	const db = mongoose.connection;
 	try {
@@ -29,25 +30,25 @@ const run = async () => {
 			name: "Songs About Jane",
 			year: 2002,
 			photo: "images/f73f43ad-9260-4c7f-8fcc-9887b35dde5f.jpg",
-			arist: artist1._id
+			artist: artist1._id
 		},
 		{
 			name: "Hands All Over",
 			year: 2010,
 			photo: "images/8ca8c379-f401-4336-b405-1b379a7603ef.jpg",
-			arist: artist1._id
+			artist: artist1._id
 		},
 		{
 			name: "÷",
 			year: 2017,
 			photo: "images/825fa97f-f0fa-4574-8e7c-f58ba8fad277.png",
-			arist: artist2._id
+			artist: artist2._id
 		},
 		{
 			name: "=",
 			year: 2021,
 			photo: "images/ecaf37a0-8418-462c-89e5-5fb9fb6e4f01.jpg",
-			arist: artist2._id
+			artist: artist2._id
 		},);
 
 	await Track.create(

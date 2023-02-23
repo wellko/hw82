@@ -15,7 +15,6 @@ export const ArtistPageSlice = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) =>{
-
 	}
 })
 

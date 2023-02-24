@@ -1,23 +1,18 @@
 import React from 'react';
-import {Artist} from "../types";
+import {Album} from "../types";
 import {Card, CardActionArea, CardContent, CardMedia, Typography} from "@mui/material";
 import {apiUrl} from "../constants";
-import {useNavigate} from "react-router-dom";
 
 interface state {
-	artist: Artist,
+	album: Album,
 }
 
-const ArtistCard:React.FC<state> = ({artist}) => {
-	const ImgUrl = apiUrl + artist.photo;
-	const navigate = useNavigate();
-	const onClickNavigate = () => {
-	navigate('/albums/' + artist._id)
-	};
+const AlbumCard:React.FC<state> = ({album}) => {
+	const ImgUrl = apiUrl + album.photo
 
 	return (
 		<Card sx={{ maxWidth: 345 }}>
-			<CardActionArea onClick={onClickNavigate}>
+			<CardActionArea>
 				<CardMedia
 					component="img"
 					height="200"
@@ -26,10 +21,10 @@ const ArtistCard:React.FC<state> = ({artist}) => {
 				/>
 				<CardContent>
 					<Typography gutterBottom variant="h5" component="div">
-						{artist.name}
+						{album.name}
 					</Typography>
 					<Typography variant="body2" color="text.secondary">
-						{artist.info}
+						{album.year}
 					</Typography>
 				</CardContent>
 			</CardActionArea>
@@ -37,4 +32,4 @@ const ArtistCard:React.FC<state> = ({artist}) => {
 	);
 };
 
-export default ArtistCard;
+export default AlbumCard;

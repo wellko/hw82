@@ -25,7 +25,6 @@ const ArtistPage = () => {
 				{loading? <CircularProgress/>:
 					artists.map(el => <ArtistCard key={Math.random()} artist={el}/>)}
 			</Grid>
-
 		</Container>
 	);
 };

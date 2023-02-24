@@ -12,3 +12,11 @@ export interface Album {
 	photo: string,
 	artist: Artist
 }
+
+export interface Track {
+	_id: string,
+	name: string,
+	numberInAlbum: number,
+	duration: string,
+	album: Album
+}

@@ -49,7 +49,12 @@ trackRouter.get('/', async (req, res) => {
         findParams = {album: queryAlbum}
     }
     try {
-        const track = await Track.find(findParams)
+        const track = await Track.find(findParams).populate({
+            path: 'album',
+            populate: {
+                path: 'artist'
+            }
+        }).sort({'numberInAlbum': 1})
         return res.send(track);
     } catch {
         return res.sendStatus(500);

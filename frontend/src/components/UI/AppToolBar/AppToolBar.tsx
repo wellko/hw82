@@ -1,7 +1,10 @@
 import React from 'react';
-import {AppBar, Button, Grid, styled, Toolbar, Typography} from '@mui/material';
+import { AppBar, Grid, styled, Toolbar, Typography } from '@mui/material';
 import { Link as NavLink } from 'react-router-dom';
-
+import { useAppSelector } from '../../../app/hooks';
+import UserMenu from './UserMenu';
+import AnonymousMenu from './AnonymousMenu';
+import {selectUser} from "../../../features/users/UsersSlice";
 
 const Link = styled(NavLink)({
 	color: 'inherit',
@@ -12,16 +15,21 @@ const Link = styled(NavLink)({
 });
 
 const AppToolbar = () => {
+	const user = useAppSelector(selectUser);
 
 	return (
 		<AppBar position="sticky" sx={{mb: 2}}>
 			<Toolbar>
 				<Grid container justifyContent="space-between" alignItems="center">
 					<Typography variant="h6" component="div">
-						<Link to="/">Music Player</Link>
+						<Link to="/">Music player</Link>
 					</Typography>
 					<Grid item>
-					<Button component={NavLink} to="/register" color="inherit">Register</Button>
+						{user ? (
+							<UserMenu user={user}/>
+						): (
+							<AnonymousMenu/>
+						)}
 					</Grid>
 				</Grid>
 			</Toolbar>

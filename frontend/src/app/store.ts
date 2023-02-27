@@ -2,6 +2,7 @@ import {configureStore} from "@reduxjs/toolkit";
 import {ArtistPageReducer} from "../features/ArtistPage/ArtistPageSlice";
 import {AlbumPageReducer} from "../features/AlbumPage/AlbumPageSlice";
 import {TrackPageReducer} from "../features/TracksPage/TrackPageSlice";
+import {UsersReducer} from "../features/users/UsersSlice";
 
 
 export const store = configureStore({
@@ -9,6 +10,7 @@ export const store = configureStore({
 		artists: ArtistPageReducer,
 		albums: AlbumPageReducer,
 		tracks: TrackPageReducer,
+		users: UsersReducer,
 	}
 });
 

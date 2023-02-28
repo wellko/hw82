@@ -23,7 +23,6 @@ const opts: YouTubeProps['opts'] = {
     height: '390',
     width: '640',
     playerVars: {
-        enablejsapi: 1,
         host: 'http://www.youtube.com',
         origin: window.location.hostname,
         autoplay: 1,

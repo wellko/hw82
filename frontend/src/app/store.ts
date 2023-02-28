@@ -3,9 +3,10 @@ import {ArtistPageReducer} from "../features/ArtistPage/ArtistPageSlice";
 import {AlbumPageReducer} from "../features/AlbumPage/AlbumPageSlice";
 import {TrackPageReducer} from "../features/TracksPage/TrackPageSlice";
 import {UsersReducer} from "../features/users/UsersSlice";
-import { persistReducer, persistStore } from 'redux-persist';
+import {persistReducer, persistStore} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
+import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist/es/constants';
+import {HistoryReducer} from "../features/TrackHistory/TrackHistorySlice";
 
 const usersPersistConfig = {
 	key: 'shop:users',
@@ -14,10 +15,11 @@ const usersPersistConfig = {
 };
 
 const rootReducer = combineReducers({
-		artists: ArtistPageReducer,
-		albums: AlbumPageReducer,
-		tracks: TrackPageReducer,
-		users: persistReducer(usersPersistConfig, UsersReducer),
+	artists: ArtistPageReducer,
+	albums: AlbumPageReducer,
+	tracks: TrackPageReducer,
+	history: HistoryReducer,
+	users: persistReducer(usersPersistConfig, UsersReducer),
 });
 
 export const store = configureStore({

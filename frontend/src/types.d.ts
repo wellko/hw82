@@ -57,3 +57,9 @@ export interface LoginMutation {
 export interface GlobalError {
 	error: string;
 }
+
+export interface HistoryItem {
+	user: User;
+	track: Track;
+	datetime: string;
+}

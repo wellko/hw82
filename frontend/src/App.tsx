@@ -7,6 +7,7 @@ import Register from "./features/users/Register";
 import Login from "./features/users/Login";
 import {CssBaseline} from "@mui/material";
 import AppToolbar from "./components/UI/AppToolBar/AppToolBar";
+import TrackHistory from "./features/TrackHistory/TrackHistory";
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 				<Route path='/tracks/:id' element=<TracksPage/>/>
 				<Route path="/login" element={<Login/>}/>
 				<Route path="/register" element={<Register/>}/>
+				<Route path="/history" element={<TrackHistory/>}/>
 			</Routes>
 		</>);
 }

@@ -4,18 +4,34 @@ import {HistoryData, Track} from "../types";
 import {useAppDispatch, useAppSelector} from "../app/hooks";
 import {selectUser} from "../features/users/UsersSlice";
 import {postHistory} from "../features/TrackHistory/TrackHistoryThunks";
+import YouTubeModal from "./YouTubeModal";
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 
 interface state {
 	tracks: Track[],
 }
 
 const TracksTable: React.FC<state> = ({tracks}) => {
+	const [open, setOpen] = React.useState(false);
+	const [video, setVideo] = React.useState<string>( '');
 	const user = useAppSelector(selectUser);
 	const dispatch = useAppDispatch();
-	const playSong =  async (data : HistoryData) => {
+	const handleClose = () => {
+		setOpen(false)
+	}
+	const playSong =  async (data : HistoryData, id:string | undefined) => {
 		dispatch(postHistory(data));
+		if (id) {
+			await setVideo(id);
+			await setOpen(true);
+		} else {
+			alert('Sond added to history');
+		}
 	}
 	return (
+		<>
+			<YouTubeModal open={open} id={video} handleClose={handleClose}/>
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
 				<TableHead>
@@ -29,7 +45,7 @@ const TracksTable: React.FC<state> = ({tracks}) => {
 				<TableBody>
 					{tracks.map((el) => (
 						<TableRow
-							key={el.name}
+							key={Math.random()}
 							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 						>
 							<TableCell component="th" scope="row">
@@ -37,12 +53,15 @@ const TracksTable: React.FC<state> = ({tracks}) => {
 							</TableCell>
 							<TableCell align="right">{el.name}</TableCell>
 							<TableCell align="right">{el.duration}</TableCell>
-							{user? <TableCell onClick={() => playSong({track: el._id})} align="right">Play</TableCell> : ''}
+							{user? <TableCell onClick={() => playSong({track: el._id}, el.videoId)} align="right">
+								{el.videoId? <YouTubeIcon/> : <PlayCircleIcon/>}
+							</TableCell> : ''}
 						</TableRow>
 					))}
 				</TableBody>
 			</Table>
 		</TableContainer>
+		</>
 	);}
 
 export default TracksTable;

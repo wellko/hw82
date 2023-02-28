@@ -11,6 +11,7 @@ trackRouter.post('/', async (req, res) => {
         name: req.body.name,
         duration: req.body.duration,
         album: req.body.album,
+        videoId : req.body.videoId? req.body.videoId: undefined,
         numberInAlbum: req.body.number,
     }
     const track = new Track(newTrackData);

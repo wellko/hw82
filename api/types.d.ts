@@ -16,6 +16,7 @@ export interface TrackData{
     album: string,
     duration: string,
     numberInAlbum: number,
+    videoId? : string,
 }
 
 export interface findAlbumData extends AlbumData {

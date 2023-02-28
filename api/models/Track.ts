@@ -11,6 +11,9 @@ const TrackSchema = new Schema({
         type: String,
         required: true
     },
+    videoId: {
+        type: String,
+    },
     album: {
         type: Schema.Types.ObjectId,
         ref: 'Album',

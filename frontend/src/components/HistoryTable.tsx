@@ -28,7 +28,7 @@ const TracksTable: React.FC<state> = ({history}) => {
                                 {el.artist.name}
                             </TableCell>
                             <TableCell align="right">{el.track.name}</TableCell>
-                            <TableCell align="right">{dayjs(el.datetime).format('YYYY.MM.DD HH:MM:ss')}</TableCell>
+                            <TableCell align="right">{dayjs(el.datetime).format('YYYY.MM.DD HH:mm:ss')}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

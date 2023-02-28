@@ -32,9 +32,6 @@ trackHistoryRouter.get('/', auth, async (req,res,next) => {
     const user = (req as RequestWithUser).user;
     try {
         const trackHistoryRes = await trackHistory.find({user: user._id}).populate('artist').populate('track').sort({"datetime": -1});
-        if (trackHistoryRes.length < 1) {
-            res.send('have no track history yet')
-        }
         return res.send(trackHistoryRes);
     }catch (error){
         return next(error)

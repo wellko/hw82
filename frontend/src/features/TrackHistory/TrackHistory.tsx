@@ -24,7 +24,7 @@ const TrackHistory = () => {
 
     return (
         <Container>
-            {loading? <CircularProgress/> :  <HistoryTable history={history}/>}
+            {history.length < 1? <h1>no history yet</h1> :  loading? <CircularProgress/> : <HistoryTable history={history}/>}
         </Container>
     );
 };

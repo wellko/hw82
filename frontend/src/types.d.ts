@@ -59,7 +59,12 @@ export interface GlobalError {
 }
 
 export interface HistoryItem {
-	user: User;
+	user: string;
 	track: Track;
+	artist: Artist;
 	datetime: string;
+}
+
+export interface HistoryData {
+	track: string;
 }

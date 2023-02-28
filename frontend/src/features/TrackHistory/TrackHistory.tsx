@@ -4,27 +4,29 @@ import {Navigate} from "react-router-dom";
 import {selectUser} from "../users/UsersSlice";
 import {selectStateOfHistory, selectStatusOfHistory} from "./TrackHistorySlice";
 import {getHistory} from "./TrackHistoryThunks";
+import {CircularProgress, Container} from "@mui/material";
+import HistoryTable from "../../components/HistoryTable";
 
 const TrackHistory = () => {
-	const dispatch = useAppDispatch();
-	const user = useAppSelector(selectUser);
-	const history = useAppSelector(selectStateOfHistory);
-	const loading = useAppSelector(selectStatusOfHistory);
+    const dispatch = useAppDispatch();
+    const user = useAppSelector(selectUser);
+    const history = useAppSelector(selectStateOfHistory);
+    const loading = useAppSelector(selectStatusOfHistory);
 
-	useEffect(()=> {
-		dispatch(getHistory())
-	}, [dispatch])
+    useEffect(() => {
+        dispatch(getHistory());
+    }, [dispatch]);
 
-	if(!user) {
-	return <Navigate to='/login'/>
-	}
+    if (!user) {
+        return <Navigate to='/login'/>;
+    }
 
 
-	return (
-		<div>
-
-		</div>
-	);
+    return (
+        <Container>
+            {loading? <CircularProgress/> :  <HistoryTable history={history}/>}
+        </Container>
+    );
 };
 
 export default TrackHistory;

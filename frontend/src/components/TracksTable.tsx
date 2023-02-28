@@ -1,12 +1,20 @@
 import React from 'react';
 import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
-import {Track} from "../types";
+import {HistoryData, Track} from "../types";
+import {useAppDispatch, useAppSelector} from "../app/hooks";
+import {selectUser} from "../features/users/UsersSlice";
+import {postHistory} from "../features/TrackHistory/TrackHistoryThunks";
 
 interface state {
 	tracks: Track[],
 }
 
 const TracksTable: React.FC<state> = ({tracks}) => {
+	const user = useAppSelector(selectUser);
+	const dispatch = useAppDispatch();
+	const playSong =  async (data : HistoryData) => {
+		dispatch(postHistory(data));
+	}
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -15,6 +23,7 @@ const TracksTable: React.FC<state> = ({tracks}) => {
 						<TableCell>number of track</TableCell>
 						<TableCell align="right">name of track</TableCell>
 						<TableCell align="right">duration</TableCell>
+						{user? <TableCell align="right">Play</TableCell> : ''}
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -28,6 +37,7 @@ const TracksTable: React.FC<state> = ({tracks}) => {
 							</TableCell>
 							<TableCell align="right">{el.name}</TableCell>
 							<TableCell align="right">{el.duration}</TableCell>
+							{user? <TableCell onClick={() => playSong({track: el._id})} align="right">Play</TableCell> : ''}
 						</TableRow>
 					))}
 				</TableBody>

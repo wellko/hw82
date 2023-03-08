@@ -12,7 +12,7 @@ const ArtistCard:React.FC<state> = ({artist}) => {
 	const ImgUrl = apiUrl + artist.photo;
 	const navigate = useNavigate();
 	const onClickNavigate = () => {
-	navigate('/albums/' + artist._id)
+	navigate('/albums/' + artist._id);
 	};
 
 	return (

@@ -17,7 +17,7 @@ const style = {
 
 const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     event.target.pauseVideo();
-}
+};
 
 const opts: YouTubeProps['opts'] = {
     height: '390',

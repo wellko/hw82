@@ -11,7 +11,7 @@ export const getHistory = createAsyncThunk<HistoryItem[], void, {state: RootStat
 		if(user){
 			try{
 				const response = await axiosApi.get('/track_history', {headers: {'Authorization': user.token}});
-				return response.data
+				return response.data;
 			} catch (e) {
 				return  e;
 			}

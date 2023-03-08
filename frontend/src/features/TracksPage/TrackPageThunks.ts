@@ -8,7 +8,7 @@ export const getTracks = createAsyncThunk<Track[], string>(
 	async (id) => {
 		try{
 			const response = await axiosApi.get('/tracks?album=' + id);
-			return response.data
+			return response.data;
 		} catch (e) {
 			return  e;
 		}

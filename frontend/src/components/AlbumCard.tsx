@@ -9,10 +9,10 @@ interface state {
 }
 
 const AlbumCard:React.FC<state> = ({album}) => {
-	const ImgUrl = apiUrl + album.photo
+	const ImgUrl = apiUrl + album.photo;
 	const navigate = useNavigate();
 	const onClickNavigate = () => {
-		navigate('/tracks/' + album._id)
+		navigate('/tracks/' + album._id);
 	};
 
 	return (

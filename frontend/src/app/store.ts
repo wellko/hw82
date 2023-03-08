@@ -9,7 +9,7 @@ import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist/e
 import {HistoryReducer} from "../features/TrackHistory/TrackHistorySlice";
 
 const usersPersistConfig = {
-	key: 'shop:users',
+	key: 'player:users',
 	storage,
 	whitelist: ['user'],
 };

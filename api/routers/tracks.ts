@@ -1,20 +1,20 @@
 import express from "express";
-import {ArtistData, findData, TrackData} from "../types";
+import {ArtistData, findData} from "../types";
 import Track from "../models/Track";
 import artist from "../models/Artist";
 import Artist from "../models/Artist";
+import auth from "../middleware/auth";
 
 const trackRouter = express.Router();
 
-trackRouter.post('/', async (req, res) => {
-    const newTrackData: TrackData = {
+trackRouter.post('/', auth, async (req, res) => {
+    const track = await Track.create({
         name: req.body.name,
         duration: req.body.duration,
         album: req.body.album,
         videoId : req.body.videoId? req.body.videoId: undefined,
         numberInAlbum: req.body.number,
-    }
-    const track = new Track(newTrackData);
+    });
     try {
         await track.save();
         return res.send(track);

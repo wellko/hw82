@@ -1,6 +1,7 @@
 import express from "express";
 import User from "../models/User";
 import { Error } from 'mongoose';
+import auth, {RequestWithUser} from "../middleware/auth";
 
 const usersRouter = express.Router();
 
@@ -34,6 +35,17 @@ usersRouter.post('/sessions', async (req, res) => {
     await user.save();
     return res.send({message: 'Username and password correct!', user});
 });
+
+usersRouter.delete('/sessions', auth, async (req,res) => {
+    const userParams = (req as RequestWithUser).user;
+    const user = await User.findOne({username: userParams.username});
+    if (!user) {
+        return res.status(400).send({error: 'Username not found'});
+    }
+    user.generateToken();
+    await user.save();
+    return res.send({message: 'Log Outed', user});
+})
 
 
 

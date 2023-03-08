@@ -1,21 +1,19 @@
 import express from "express";
 import {imagesUpload} from "../multer";
-import {AlbumData} from "../types";
 import Album from "../models/Album";
 import album from "../models/Album";
+import auth from "../middleware/auth";
 
 const albumRouter = express.Router();
 
-albumRouter.post('/', imagesUpload.single('photo'), async (req, res) => {
-    const newAlbumData: AlbumData = {
+albumRouter.post('/',auth, imagesUpload.single('photo'), async (req, res) => {
+    try {
+    const album = await Album.create({
         name: req.body.name,
         artist: req.body.artist,
         photo: req.file ? req.file.filename : null,
         year: req.body.year,
-    }
-    const album = new Album(newAlbumData);
-    try {
-        await album.save();
+    });
         return res.send(album);
     } catch (error) {
         return res.status(400).send(error);

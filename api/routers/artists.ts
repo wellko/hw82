@@ -2,7 +2,7 @@ import express = require("express");
 import {imagesUpload} from "../multer";
 import Artist from "../models/Artist";
 import artist from "../models/Artist";
-import {ArtistData} from "../types";
+import auth from "../middleware/auth";
 
 const artistRouter = express.Router();
 
@@ -15,15 +15,13 @@ artistRouter.get('/', async (req, res) => {
         }
 })
 
-artistRouter.post('/', imagesUpload.single('photo'), async (req,res) => {
-    const newArtistData:ArtistData = {
+artistRouter.post('/',auth, imagesUpload.single('photo'), async (req,res) => {
+    try {
+    const artist = await Artist.create({
         name: req.body.name,
         info: req.body.info? req.body.info: '',
         photo: req.file ? req.file.filename : null,
-    }
-    const artist = new Artist(newArtistData);
-    try {
-        await artist.save();
+    });
         return res.send(artist);
     } catch (error) {
         return res.status(400).send(error);

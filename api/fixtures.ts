@@ -3,6 +3,7 @@ import config from './config';
 import Artist from "./models/Artist";
 import Album from "./models/Album";
 import Track from "./models/Track";
+import User from "./models/User";
 
 const run = async () => {
 	mongoose.set('strictQuery', false);
@@ -17,6 +18,19 @@ const run = async () => {
 	} catch (e) {
 		console.log('Collections were not present, skipping drop...');
 	}
+
+	await User.create({
+			username: "admin",
+			password: "admin",
+			role: "admin",
+			token: "some token"
+		},
+		{
+			username: "user",
+			password: "user",
+			role: "user",
+			token: "some token 2"
+		})
 
 	const [artist1, artist2] = await Artist.create({
 		name: "Maroon-5",

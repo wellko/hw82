@@ -1,35 +1,35 @@
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
-import {ArtistPageReducer} from "../features/ArtistPage/ArtistPageSlice";
-import {AlbumPageReducer} from "../features/AlbumPage/AlbumPageSlice";
-import {TrackPageReducer} from "../features/TracksPage/TrackPageSlice";
-import {UsersReducer} from "../features/users/UsersSlice";
-import {persistReducer, persistStore} from 'redux-persist';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { ArtistPageReducer } from '../features/ArtistPage/ArtistPageSlice';
+import { AlbumPageReducer } from '../features/AlbumPage/AlbumPageSlice';
+import { TrackPageReducer } from '../features/TracksPage/TrackPageSlice';
+import { UsersReducer } from '../features/users/UsersSlice';
+import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist/es/constants';
-import {HistoryReducer} from "../features/TrackHistory/TrackHistorySlice";
+import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist/es/constants';
+import { HistoryReducer } from '../features/TrackHistory/TrackHistorySlice';
 
 const usersPersistConfig = {
-	key: 'player:users',
-	storage,
-	whitelist: ['user'],
+  key: 'player:users',
+  storage,
+  whitelist: ['user'],
 };
 
 const rootReducer = combineReducers({
-	artists: ArtistPageReducer,
-	albums: AlbumPageReducer,
-	tracks: TrackPageReducer,
-	history: HistoryReducer,
-	users: persistReducer(usersPersistConfig, UsersReducer),
+  artists: ArtistPageReducer,
+  albums: AlbumPageReducer,
+  tracks: TrackPageReducer,
+  history: HistoryReducer,
+  users: persistReducer(usersPersistConfig, UsersReducer),
 });
 
 export const store = configureStore({
-	reducer: rootReducer,
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({
-			serializableCheck: {
-				ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-			},
-		}),
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);

@@ -35,36 +35,42 @@ const run = async () => {
 	const [artist1, artist2] = await Artist.create({
 		name: "Maroon-5",
 		photo: "images/5552a635-7f5e-4683-8a7e-e19bb6919be3.jpg",
-		info: "American pop-rock group"
+		info: "American pop-rock group",
+		isPublished: true
 	}, {
 		name: "Ed Sheeran",
 		photo: "images/62fbeea7-f4fc-4d1a-9815-294fd4edf162.jpg",
-		info: "English singer-songwriter"
+		info: "English singer-songwriter",
+		isPublished: true
 	});
 
 	const [album1, album2, album3, album4] = await Album.create({
 			name: "Songs About Jane",
 			year: 2002,
 			photo: "images/f73f43ad-9260-4c7f-8fcc-9887b35dde5f.jpg",
-			artist: artist1._id
+			artist: artist1._id,
+			isPublished: true
 		},
 		{
 			name: "Hands All Over",
 			year: 2010,
 			photo: "images/8ca8c379-f401-4336-b405-1b379a7603ef.jpg",
-			artist: artist1._id
+			artist: artist1._id,
+			isPublished: true
 		},
 		{
 			name: "÷",
 			year: 2017,
 			photo: "images/825fa97f-f0fa-4574-8e7c-f58ba8fad277.png",
-			artist: artist2._id
+			artist: artist2._id,
+			isPublished: true
 		},
 		{
 			name: "=",
 			year: 2021,
 			photo: "images/ecaf37a0-8418-462c-89e5-5fb9fb6e4f01.jpg",
-			artist: artist2._id
+			artist: artist2._id,
+			isPublished: true
 		},);
 
 	await Track.create(
@@ -73,140 +79,160 @@ const run = async () => {
 			duration: "2:53",
 			album: album1._id,
 			numberInAlbum: 1,
-			videoId: "rV8NHsmVMPE"
+			videoId: "rV8NHsmVMPE",
+			isPublished: true
 		},
 		{
 			name: "This Love",
 			duration: "3:26",
 			album: album1._id,
 			numberInAlbum: 2,
-			videoId: "XPpTgCho5ZA"
+			videoId: "XPpTgCho5ZA",
+			isPublished: true
 		},
 		{
 			name: "Shiver",
 			duration: "2:59",
 			album: album1._id,
 			numberInAlbum: 3,
-			videoId: "wXpS0eArMVQ"
+			videoId: "wXpS0eArMVQ",
+			isPublished: true
 		},
 		{
 			name: "She Will Be Loved",
 			duration: "4:17",
 			album: album1._id,
 			numberInAlbum: 4,
-			videoId: "nIjVuRTm-dc"
+			videoId: "nIjVuRTm-dc",
+			isPublished: true
 		},
 		{
 			name: "Tangled",
 			duration: "3:18",
 			album: album1._id,
 			numberInAlbum: 5,
-			videoId: "2dqri2hjIik	"
+			videoId: "2dqri2hjIik	",
+			isPublished: true
 		},
 		{
 			name: "Misery",
 			duration: "3:36",
 			album: album2._id,
 			numberInAlbum: 1,
-			videoId: "6g6g2mvItp4"
+			videoId: "6g6g2mvItp4",
+			isPublished: true
 		},
 		{
 			name: "Give a Little More",
 			duration: "3:00",
 			album: album2._id,
 			numberInAlbum: 2,
-			videoId: "BP1PsqBmbvM"
+			videoId: "BP1PsqBmbvM",
+			isPublished: true
 		},
 		{
 			name: "Stutter",
 			duration: "3:16",
 			album: album2._id,
 			numberInAlbum: 3,
-			videoId: "l9CZr10ebLQ"
+			videoId: "l9CZr10ebLQ",
+			isPublished: true
 		},
 		{
 			name: "Don't Know Nothing",
 			duration: "3:19",
 			album: album2._id,
 			numberInAlbum: 4,
-			videoId: "SteFI_xGl90"
+			videoId: "SteFI_xGl90",
+			isPublished: true
 		},
 		{
 			name: "Never Gonna Leave This Bed",
 			duration: "3:16",
 			album: album2._id,
 			numberInAlbum: 5,
-			videoId: "ADmCFmYLns4"
+			videoId: "ADmCFmYLns4",
+			isPublished: true
 		},
 		{
 			name: "Eraser",
 			duration: "3:42",
 			album: album3._id,
 			numberInAlbum: 1,
-			videoId: "OjGrcJ4lZCc"
+			videoId: "OjGrcJ4lZCc",
+			isPublished: true
 		},
 		{
 			name: "Castle on the Hill",
 			duration: "4:21",
 			album: album3._id,
 			numberInAlbum: 2,
-			videoId: "K0ibBPhiaG0"
+			videoId: "K0ibBPhiaG0",
+			isPublished: true
 		},
 		{
 			name: "Dive",
 			duration: "3:58",
 			album: album3._id,
 			numberInAlbum: 3,
-			videoId: "Wv2rLZmbPMA"
+			videoId: "Wv2rLZmbPMA",
+			isPublished: true
 		},
 		{
 			name: "Shape of You",
 			duration: "3:53",
 			album: album3._id,
 			numberInAlbum: 4,
-			videoId: "JGwWNGJdvx8"
+			videoId: "JGwWNGJdvx8",
+			isPublished: true
 		},
 		{
 			name: "Perfect",
 			duration: "4:23",
 			album: album3._id,
 			numberInAlbum: 5,
-			videoId: "2Vv-BfVoq4g"
+			videoId: "2Vv-BfVoq4g",
+			isPublished: true
 		},
 		{
 			name: "Tides",
 			duration: "3:15",
 			album: album4._id,
 			numberInAlbum: 1,
-			videoId: "P_kRTqaD8Mc"
+			videoId: "P_kRTqaD8Mc",
+			isPublished: true
 		},
 		{
 			name: "Shivers",
 			duration: "3:27",
 			album: album4._id,
 			numberInAlbum: 2,
-			videoId: ""
+			videoId: "",
+			isPublished: true
 		},
 		{
 			name: "First Times",
 			duration: "3:05",
 			album: album4._id,
 			numberInAlbum: 3,
-			videoId: ""
+			videoId: "",
+			isPublished: true
 		},
 		{
 			name: "Bad Habits",
 			duration: "3:51",
 			album: album4._id,
 			numberInAlbum: 4,
-			videoId: ""
+			videoId: "",
+			isPublished: true
 		},
 		{
 			name: "Overpass Graffiti",
 			duration: "3:56",
 			album: album4._id,
 			numberInAlbum: 5,
-			videoId: ""
+			videoId: "",
+			isPublished: true
 		},
 	)
 	await db.close();

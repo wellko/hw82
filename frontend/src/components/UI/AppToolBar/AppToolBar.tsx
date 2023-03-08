@@ -4,37 +4,31 @@ import { Link as NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../app/hooks';
 import UserMenu from './UserMenu';
 import AnonymousMenu from './AnonymousMenu';
-import {selectUser} from "../../../features/users/UsersSlice";
+import { selectUser } from '../../../features/users/UsersSlice';
 
 const Link = styled(NavLink)({
-	color: 'inherit',
-	textDecoration: 'none',
-	'&:hover': {
-		color: 'inherit'
-	},
+  color: 'inherit',
+  textDecoration: 'none',
+  '&:hover': {
+    color: 'inherit',
+  },
 });
 
 const AppToolbar = () => {
-	const user = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser);
 
-	return (
-		<AppBar position="sticky" sx={{mb: 2}}>
-			<Toolbar>
-				<Grid container justifyContent="space-between" alignItems="center">
-					<Typography variant="h6" component="div">
-						<Link to="/">Music player</Link>
-					</Typography>
-					<Grid item>
-						{user ? (
-							<UserMenu user={user}/>
-						): (
-							<AnonymousMenu/>
-						)}
-					</Grid>
-				</Grid>
-			</Toolbar>
-		</AppBar>
-	);
+  return (
+    <AppBar position="sticky" sx={{ mb: 2 }}>
+      <Toolbar>
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Typography variant="h6" component="div">
+            <Link to="/">Music player</Link>
+          </Typography>
+          <Grid item>{user ? <UserMenu user={user} /> : <AnonymousMenu />}</Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
 };
 
 export default AppToolbar;

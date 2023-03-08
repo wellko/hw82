@@ -22,6 +22,11 @@ const AlbumSchema = new Schema({
             validator: async (value: Types.ObjectId) => Artist.findById(value),
             message: 'Artist does not exist!',
         }
+    },
+    isPublished: {
+        type: Boolean,
+        required: true,
+        default: false,
     }
 });
 

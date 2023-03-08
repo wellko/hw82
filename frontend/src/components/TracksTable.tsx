@@ -58,7 +58,7 @@ const TracksTable: React.FC<state> = ({tracks}) => {
                                 <TableCell align="right">{el.duration}</TableCell>
                                 {user ? <TableCell align="right">
                                     <LoadingButton loading={posting} onClick={() => playSong({track: el._id}, el.videoId)} >
-                                        {el.videoId ? <YouTubeIcon/> : <PlayCircleIcon/>}
+                                        {el.videoId? <YouTubeIcon/> : <PlayCircleIcon/>}
                                     </LoadingButton>
                                 </TableCell> : ''}
                             </TableRow>

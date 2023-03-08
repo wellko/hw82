@@ -66,6 +66,7 @@ const Login = () => {
 					<Grid container spacing={2}>
 						<Grid container item xs={12}>
 							<TextField
+								sx={{'margin': 'auto'}}
 								label="Username"
 								name="username"
 								autoComplete="current-username"
@@ -75,6 +76,7 @@ const Login = () => {
 						</Grid>
 						<Grid container item xs={12}>
 							<TextField
+								sx={{'margin': 'auto'}}
 								label="Password"
 								name="password"
 								type="password"

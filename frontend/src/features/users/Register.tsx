@@ -61,6 +61,7 @@ const Register = () => {
 					<Grid container spacing={2}>
 						<Grid container item xs={12}>
 							<TextField
+								sx={{'margin': 'auto'}}
 								label="Username"
 								name="username"
 								autoComplete="new-username"
@@ -72,6 +73,7 @@ const Register = () => {
 						</Grid>
 						<Grid container item xs={12}>
 							<TextField
+								sx={{'margin': 'auto'}}
 								name="password"
 								label="Password"
 								type="password"

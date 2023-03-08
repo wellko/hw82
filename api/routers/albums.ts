@@ -29,7 +29,7 @@ albumRouter.get('/', async (req, res) => {
         findParams = {artist: queryArtist}
     }
     try {
-        const albums = await album.find(findParams).populate('artist', 'name').sort({"year":-1})
+        const albums = await album.find(findParams).populate('artist', 'name').sort({"year":-1});
         return res.send(albums);
     } catch {
         return res.sendStatus(500);
@@ -38,7 +38,7 @@ albumRouter.get('/', async (req, res) => {
 
 albumRouter.get('/:id', async (req, res) => {
     try {
-        const albums = await album.find({_id: req.params.id}).populate('artist', 'name info photo').sort({"year":-1})
+        const albums = await album.find({_id: req.params.id}).populate('artist', 'name info photo').sort({"year":-1});
         return res.send(albums);
     } catch {
         return res.sendStatus(500);

@@ -8,7 +8,7 @@ const artistRouter = express.Router();
 
 artistRouter.get('/', async (req, res) => {
         try {
-            const artists = await artist.find()
+            const artists = await artist.find();
             return res.send(artists);
         } catch {
             return res.sendStatus(500);

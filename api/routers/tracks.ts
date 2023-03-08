@@ -1,9 +1,11 @@
 import express from "express";
-import {ArtistData, findData} from "../types";
+import {ArtistData, findData, TrackData} from "../types";
 import Track from "../models/Track";
 import artist from "../models/Artist";
 import Artist from "../models/Artist";
 import auth from "../middleware/auth";
+import permit from "../middleware/permit";
+import {HydratedDocument} from "mongoose";
 
 const trackRouter = express.Router();
 
@@ -60,6 +62,20 @@ trackRouter.get('/', async (req, res) => {
     } catch {
         return res.sendStatus(500);
     }
-})
+});
+
+trackRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res) => {
+    const track: HydratedDocument<TrackData> | null = await Track.findById(req.params.id);
+    if (!track) {
+        return res.sendStatus(404);
+    }
+    track.isPublished = !track.isPublished;
+    try {
+        track.save();
+        return res.send(track);
+    } catch {
+        return res.sendStatus(500);
+    }
+});
 
 export default trackRouter;

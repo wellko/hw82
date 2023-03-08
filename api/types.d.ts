@@ -2,6 +2,7 @@ export interface ArtistData {
     name: string,
     info:string,
     photo: string | null,
+    isPublished: boolean
 }
 
 export interface AlbumData{
@@ -9,6 +10,7 @@ export interface AlbumData{
     photo: string | null,
     year: string,
     artist: string,
+    isPublished: boolean
 }
 
 export interface TrackData{
@@ -17,6 +19,7 @@ export interface TrackData{
     duration: string,
     numberInAlbum: number,
     videoId? : string,
+    isPublished: boolean
 }
 
 export interface findAlbumData extends AlbumData {

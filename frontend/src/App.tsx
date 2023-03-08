@@ -15,9 +15,9 @@ function App() {
       <CssBaseline />
       <AppToolbar />
       <Routes>
-        <Route path="/" element=<ArtistPage/> />
-        <Route path="/albums/:id" element=<AlbumPage/> />
-        <Route path="/tracks/:id" element=<TracksPage/> />
+        <Route path="/" element={<ArtistPage />} />
+        <Route path="/albums/:id" element={<AlbumPage />} />
+        <Route path="/tracks/:id" element={<TracksPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/history" element={<TrackHistory />} />

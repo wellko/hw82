@@ -64,7 +64,7 @@ const Login = () => {
 				)}
 				<Box component="form" onSubmit={submitFormHandler} sx={{mt: 3}}>
 					<Grid container spacing={2}>
-						<Grid item xs={12}>
+						<Grid container item xs={12}>
 							<TextField
 								label="Username"
 								name="username"
@@ -73,7 +73,7 @@ const Login = () => {
 								onChange={inputChangeHandler}
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid container item xs={12}>
 							<TextField
 								label="Password"
 								name="password"

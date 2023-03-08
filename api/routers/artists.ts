@@ -5,7 +5,8 @@ import auth from "../middleware/auth";
 import permit from "../middleware/permit";
 import {HydratedDocument} from "mongoose";
 import { ArtistData} from "../types";
-
+import Track from "../models/Track";
+import Album from "../models/Album";
 const artistRouter = express.Router();
 
 artistRouter.get('/', async (req, res) => {
@@ -39,6 +40,20 @@ artistRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, re
     try {
         artist.save();
         return res.send(artist);
+    } catch {
+        return res.sendStatus(500);
+    }
+});
+
+artistRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
+    try {
+        const Albums = await Album.find({artist: req.params.id});
+        if (Albums.length){
+            Albums.map(async el => await Track.deleteMany({album: el._id}));
+        }
+        await Album.deleteMany({artist: req.params.id});
+        await Artist.deleteOne({_id: req.params.id});
+        return res.send({message: 'deleted'});
     } catch {
         return res.sendStatus(500);
     }

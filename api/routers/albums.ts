@@ -5,6 +5,8 @@ import auth from "../middleware/auth";
 import permit from "../middleware/permit";
 import {HydratedDocument} from "mongoose";
 import {AlbumData} from "../types";
+import Track from "../models/Track";
+
 
 const albumRouter = express.Router();
 
@@ -54,6 +56,16 @@ albumRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res
 	try {
 		albums.save();
 		return res.send(albums);
+	} catch {
+		return res.sendStatus(500);
+	}
+});
+
+albumRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
+	try {
+		await Track.deleteMany({album: req.params.id});
+		await Album.deleteOne({_id: req.params.id});
+		return res.send({message: 'deleted'});
 	} catch {
 		return res.sendStatus(500);
 	}

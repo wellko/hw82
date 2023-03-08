@@ -44,7 +44,7 @@ usersRouter.delete('/sessions', auth, async (req,res) => {
     }
     user.generateToken();
     await user.save();
-    return res.send({message: 'Log Outed', user});
+    return res.send({message: 'Log Outed'});
 })
 
 

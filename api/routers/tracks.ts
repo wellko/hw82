@@ -23,7 +23,7 @@ trackRouter.post('/', auth, async (req, res) => {
     } catch (error) {
         return res.status(400).send(error);
     }
-})
+});
 
 trackRouter.get('/', async (req, res) => {
     const queryArtist = req.query.artist as string;
@@ -44,7 +44,6 @@ trackRouter.get('/', async (req, res) => {
             return res.sendStatus(500);
         }
     }
-
 
     const queryAlbum = req.query.album as string;
     let findParams = {};
@@ -73,6 +72,15 @@ trackRouter.patch('/:id/togglePublished', auth, permit('admin'), async (req, res
     try {
         track.save();
         return res.send(track);
+    } catch {
+        return res.sendStatus(500);
+    }
+});
+
+trackRouter.delete('/:id', auth, permit('admin'), async (req, res) => {
+    try {
+        await Track.deleteOne({_id: req.params.id});
+        return res.send({message: 'deleted'});
     } catch {
         return res.sendStatus(500);
     }

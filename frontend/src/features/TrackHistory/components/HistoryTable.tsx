@@ -1,6 +1,6 @@
 import React from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { HistoryItem } from '../types';
+import { HistoryItem } from '../../../types';
 import dayjs from 'dayjs';
 
 interface state {

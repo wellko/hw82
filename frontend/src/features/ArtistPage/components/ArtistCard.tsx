@@ -1,7 +1,7 @@
 import React from 'react';
-import { Artist } from '../types';
+import { Artist } from '../../../types';
 import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
-import { apiUrl } from '../constants';
+import { apiUrl } from '../../../constants';
 import { useNavigate } from 'react-router-dom';
 
 interface state {

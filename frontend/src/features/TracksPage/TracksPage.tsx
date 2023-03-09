@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { CircularProgress, Container, Grid, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import TracksTable from '../../components/TracksTable';
+import TracksTable from './components/TracksTable';
 import { selectStateOfTrack, selectStatusOfTrack } from './TrackPageSlice';
 import { getTracks } from './TrackPageThunks';
 import { useParams } from 'react-router-dom';

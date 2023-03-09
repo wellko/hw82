@@ -1,13 +1,13 @@
 import React from 'react';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { HistoryData, Track } from '../types';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { selectUser } from '../features/users/UsersSlice';
-import { postHistory } from '../features/TrackHistory/TrackHistoryThunks';
+import { HistoryData, Track } from '../../../types';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { selectUser } from '../../users/UsersSlice';
+import { postHistory } from '../../TrackHistory/TrackHistoryThunks';
 import YouTubeModal from './YouTubeModal';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import { selectStatusOfPostingHistory } from '../features/TrackHistory/TrackHistorySlice';
+import { selectStatusOfPostingHistory } from '../../TrackHistory/TrackHistorySlice';
 import { LoadingButton } from '@mui/lab';
 
 interface state {

@@ -5,7 +5,7 @@ import { selectUser } from '../users/UsersSlice';
 import { selectStateOfHistory, selectStatusOfHistory } from './TrackHistorySlice';
 import { getHistory } from './TrackHistoryThunks';
 import { CircularProgress, Container } from '@mui/material';
-import HistoryTable from '../../components/HistoryTable';
+import HistoryTable from './components/HistoryTable';
 
 const TrackHistory = () => {
   const dispatch = useAppDispatch();

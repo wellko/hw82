@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getAlbums } from './AlbumPageThunks';
 import { useParams } from 'react-router-dom';
 import { selectStateOfAlbum, selectStatusOfAlbum } from './AlbumPageSlice';
-import AlbumCard from '../../components/AlbumCard';
+import AlbumCard from './components/AlbumCard';
 
 const AlbumPage = () => {
   const { id } = useParams();

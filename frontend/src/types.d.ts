@@ -1,17 +1,21 @@
 export interface Artist {
   name: string;
-  photo: string;
+  photo: string | null;
   info: string;
   _id: string;
 }
+
+export type ArtistMutation = Omit<Artist, '_id'>;
 
 export interface Album {
   _id: string;
   name: string;
   year: number;
-  photo: string;
+  photo: string | null;
   artist: Artist;
 }
+
+export type AlbumMutations = Omit<Album, '_id'>;
 
 export interface Track {
   _id: string;
@@ -21,6 +25,8 @@ export interface Track {
   duration: string;
   album: Album;
 }
+
+export type TrackMutation = Omit<Track, '_id'>;
 
 export interface RegisterMutation {
   username: string;

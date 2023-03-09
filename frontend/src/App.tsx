@@ -8,8 +8,13 @@ import Login from './features/users/Login';
 import { CssBaseline } from '@mui/material';
 import AppToolbar from './components/UI/AppToolBar/AppToolBar';
 import TrackHistory from './features/TrackHistory/TrackHistory';
+import { selectUser } from './features/users/UsersSlice';
+import { useAppSelector } from './app/hooks';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import NewArtist from './features/ArtistPage/NewArtist';
 
 function App() {
+  const user = useAppSelector(selectUser);
   return (
     <>
       <CssBaseline />
@@ -18,6 +23,14 @@ function App() {
         <Route path="/" element={<ArtistPage />} />
         <Route path="/albums/:id" element={<AlbumPage />} />
         <Route path="/tracks/:id" element={<TracksPage />} />
+        <Route
+          path="/artists/new"
+          element={
+            <ProtectedRoute isAllowed={Boolean(user)}>
+              <NewArtist />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/history" element={<TrackHistory />} />

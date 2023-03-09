@@ -3,7 +3,7 @@ import { CircularProgress, Container, Grid, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { getArtists } from './ArtistPageThunks';
 import { selectStateOfArtist, selectStatusOfArtist } from './ArtistPageSlice';
-import ArtistCard from '../../components/ArtistCard';
+import ArtistCard from './components/ArtistCard';
 
 const ArtistPage = () => {
   const dispatch = useAppDispatch();

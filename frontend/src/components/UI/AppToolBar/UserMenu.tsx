@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { User } from '../../../types';
 import { Button, Menu, MenuItem } from '@mui/material';
-import { logOut } from '../../../features/users/UsersSlice';
 import { useAppDispatch } from '../../../app/hooks';
 import { useNavigate } from 'react-router-dom';
+import { getArtists } from '../../../features/ArtistPage/ArtistPageThunks';
+import { logoutAction } from '../../../features/users/UsersThunks';
 
 interface Props {
   user: User;
@@ -56,8 +57,9 @@ const UserMenu: React.FC<Props> = ({ user }) => {
           Add track
         </MenuItem>
         <MenuItem
-          onClick={() => {
-            dispatch(logOut());
+          onClick={async () => {
+            await dispatch(logoutAction());
+            await dispatch(getArtists());
             navigate('/');
           }}
         >

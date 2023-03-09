@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Track } from '../../types';
-import { getTracks } from './TrackPageThunks';
+import { createTrack, getTracks } from './TrackPageThunks';
 
 interface Initial {
   tracks: Track[];
   loading: boolean;
+  posting: boolean;
 }
 
 const initialState: Initial = {
   tracks: [],
   loading: false,
+  posting: false,
 };
 
 export const ArtistPageSlice = createSlice({
@@ -28,9 +30,19 @@ export const ArtistPageSlice = createSlice({
     builder.addCase(getTracks.rejected, (state) => {
       state.loading = false;
     });
+    builder.addCase(createTrack.pending, (state) => {
+      state.posting = true;
+    });
+    builder.addCase(createTrack.fulfilled, (state) => {
+      state.posting = false;
+    });
+    builder.addCase(createTrack.rejected, (state) => {
+      state.posting = false;
+    });
   },
 });
 
 export const TrackPageReducer = ArtistPageSlice.reducer;
 export const selectStateOfTrack = (state: RootState) => state.tracks.tracks;
 export const selectStatusOfTrack = (state: RootState) => state.tracks.loading;
+export const selectStatusOfPostingTrack = (state: RootState) => state.tracks.posting;

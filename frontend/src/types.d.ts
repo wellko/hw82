@@ -31,7 +31,13 @@ export interface Track {
   album: Album;
 }
 
-export type TrackMutation = Omit<Track, '_id'>;
+export interface TrackMutation {
+  name: string;
+  numberInAlbum: number;
+  videoId?: string;
+  duration: string;
+  album: string;
+}
 
 export interface RegisterMutation {
   username: string;

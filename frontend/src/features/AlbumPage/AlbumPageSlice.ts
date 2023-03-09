@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Album } from '../../types';
-import { getAlbums } from './AlbumPageThunks';
+import { createAlbum, getAlbums } from './AlbumPageThunks';
 
 interface Initial {
   albums: Album[];
   loading: boolean;
+  posting: boolean;
 }
 
 const initialState: Initial = {
   albums: [],
   loading: false,
+  posting: false,
 };
 
 export const AlbumPageSlice = createSlice({
@@ -28,9 +30,19 @@ export const AlbumPageSlice = createSlice({
     builder.addCase(getAlbums.rejected, (state) => {
       state.loading = false;
     });
+    builder.addCase(createAlbum.pending, (state) => {
+      state.posting = true;
+    });
+    builder.addCase(createAlbum.fulfilled, (state) => {
+      state.posting = false;
+    });
+    builder.addCase(createAlbum.rejected, (state) => {
+      state.posting = false;
+    });
   },
 });
 
 export const AlbumPageReducer = AlbumPageSlice.reducer;
 export const selectStateOfAlbum = (state: RootState) => state.albums.albums;
 export const selectStatusOfAlbum = (state: RootState) => state.albums.loading;
+export const selectStatusOfPostingAlbum = (state: RootState) => state.albums.posting;

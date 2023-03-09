@@ -13,7 +13,7 @@ export const getArtists = createAsyncThunk<Artist[]>('Artist/getAll', async () =
 
 export const createArtist = createAsyncThunk<Artist, ArtistMutation>('Artist/new', async (arg) => {
   try {
-    const response = await axiosApi.post('artists', arg);
+    const response = await axiosApi.post('/artists', arg);
     return response.data;
   } catch (e) {
     return e;

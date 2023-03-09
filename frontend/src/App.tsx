@@ -12,6 +12,7 @@ import { selectUser } from './features/users/UsersSlice';
 import { useAppSelector } from './app/hooks';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import NewArtist from './features/ArtistPage/NewArtist';
+import NewAlbum from './features/AlbumPage/NewAlbum';
 
 function App() {
   const user = useAppSelector(selectUser);
@@ -28,6 +29,14 @@ function App() {
           element={
             <ProtectedRoute isAllowed={Boolean(user)}>
               <NewArtist />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/albums/new"
+          element={
+            <ProtectedRoute isAllowed={Boolean(user)}>
+              <NewAlbum />
             </ProtectedRoute>
           }
         />

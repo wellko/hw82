@@ -12,9 +12,9 @@ const ArtistForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const loading = useAppSelector(selectStatusOfPostingArtist);
-  const onSubmit = async (productMutation: ArtistMutation) => {
+  const onSubmit = async (ArtistMutation: ArtistMutation) => {
     try {
-      await dispatch(createArtist(productMutation)).unwrap();
+      await dispatch(createArtist(ArtistMutation)).unwrap();
       navigate('/');
     } catch (e) {
       // error
@@ -51,7 +51,7 @@ const ArtistForm = () => {
       <Grid container direction="row" spacing={2}>
         <Grid container item xs={12}>
           <TextField
-            sx={{ margin: 'auto' }}
+            sx={{ margin: 'auto', width: '60%' }}
             label="Artist name"
             name="name"
             value={state.name}
@@ -62,7 +62,7 @@ const ArtistForm = () => {
 
         <Grid container item xs={12}>
           <TextField
-            sx={{ margin: 'auto' }}
+            sx={{ margin: 'auto', width: '60%' }}
             multiline
             rows={3}
             id="info"

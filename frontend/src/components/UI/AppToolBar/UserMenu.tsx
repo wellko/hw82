@@ -43,6 +43,13 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         </MenuItem>
         <MenuItem
           onClick={() => {
+            navigate('/albums/new');
+          }}
+        >
+          Add album
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             dispatch(logOut());
             navigate('/');
           }}

@@ -15,7 +15,12 @@ export interface Album {
   artist: Artist;
 }
 
-export type AlbumMutations = Omit<Album, '_id'>;
+export interface AlbumMutation {
+  name: string;
+  year: number;
+  photo: string | null;
+  artist: string;
+}
 
 export interface Track {
   _id: string;

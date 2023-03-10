@@ -19,3 +19,21 @@ export const createTrack = createAsyncThunk<Track, TrackMutation>('Track/new', a
     return e;
   }
 });
+
+export const publicTrack = createAsyncThunk<Track, string>('Track/public', async (arg) => {
+  try {
+    const response = await axiosApi.patch('/tracks/' + arg + '/togglePublished');
+    return response.data;
+  } catch (e) {
+    return e;
+  }
+});
+
+export const deleteTrack = createAsyncThunk<Track, string>('Track/delete', async (arg) => {
+  try {
+    const response = await axiosApi.delete('/tracks/' + arg);
+    return response.data;
+  } catch (e) {
+    return e;
+  }
+});

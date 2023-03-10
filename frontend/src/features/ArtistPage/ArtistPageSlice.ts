@@ -1,18 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Artist } from '../../types';
-import { createArtist, getArtists } from './ArtistPageThunks';
+import { createArtist, deleteArtist, getArtists, publicArtist } from './ArtistPageThunks';
 
 interface Initial {
   artists: Artist[];
   loading: boolean;
   posting: boolean;
+  deleting: boolean;
 }
 
 const initialState: Initial = {
   artists: [],
   loading: false,
   posting: false,
+  deleting: false,
 };
 
 export const ArtistPageSlice = createSlice({
@@ -40,6 +42,26 @@ export const ArtistPageSlice = createSlice({
     builder.addCase(createArtist.rejected, (state) => {
       state.posting = false;
     });
+
+    builder.addCase(publicArtist.pending, (state) => {
+      state.posting = true;
+    });
+    builder.addCase(publicArtist.fulfilled, (state) => {
+      state.posting = false;
+    });
+    builder.addCase(publicArtist.rejected, (state) => {
+      state.posting = false;
+    });
+
+    builder.addCase(deleteArtist.pending, (state) => {
+      state.deleting = true;
+    });
+    builder.addCase(deleteArtist.fulfilled, (state) => {
+      state.deleting = false;
+    });
+    builder.addCase(deleteArtist.rejected, (state) => {
+      state.deleting = false;
+    });
   },
 });
 
@@ -47,3 +69,4 @@ export const ArtistPageReducer = ArtistPageSlice.reducer;
 export const selectStateOfArtist = (state: RootState) => state.artists.artists;
 export const selectStatusOfArtist = (state: RootState) => state.artists.loading;
 export const selectStatusOfPostingArtist = (state: RootState) => state.artists.posting;
+export const selectStatusOfDeletingArtist = (state: RootState) => state.artists.deleting;

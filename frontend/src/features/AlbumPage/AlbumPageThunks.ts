@@ -19,3 +19,21 @@ export const createAlbum = createAsyncThunk<Album, AlbumMutation>('Album/new', a
     return e;
   }
 });
+
+export const publicAlbum = createAsyncThunk<Album, string>('Album/public', async (arg) => {
+  try {
+    const response = await axiosApi.patch('/albums/' + arg + '/togglePublished');
+    return response.data;
+  } catch (e) {
+    return e;
+  }
+});
+
+export const deleteAlbum = createAsyncThunk<Album, string>('Album/delete', async (arg) => {
+  try {
+    const response = await axiosApi.delete('/albums/' + arg);
+    return response.data;
+  } catch (e) {
+    return e;
+  }
+});

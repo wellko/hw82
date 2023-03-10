@@ -11,14 +11,16 @@ import role from "../middleware/role";
 
 const artistRouter = express.Router();
 
-artistRouter.get("/", role,async (req, res) => {
+artistRouter.get("/", role, async (req, res) => {
   const user = (req as RequestWithUser).user;
   try {
-    if (user && user.role  === "admin") {
+    if (user && user.role === "admin") {
       const artists = await Artist.find();
       return res.send(artists);
     }
-    const artists = await Artist.find({ isPublished: true });
+    const artists = await Artist.find({
+      $or: [{ isPublished: true }, { author: user?._id }],
+    });
     return res.send(artists);
   } catch {
     return res.sendStatus(500);
@@ -26,11 +28,13 @@ artistRouter.get("/", role,async (req, res) => {
 });
 
 artistRouter.post("/", auth, imagesUpload.single("photo"), async (req, res) => {
+  const user = (req as RequestWithUser).user;
   try {
     const artist = await Artist.create({
       name: req.body.name,
       info: req.body.info ? req.body.info : "",
       photo: req.file ? req.file.filename : null,
+      author: user._id,
     });
     return res.send(artist);
   } catch (error) {
@@ -59,15 +63,29 @@ artistRouter.patch(
   }
 );
 
-artistRouter.delete("/:id", auth, permit("admin"), async (req, res) => {
+artistRouter.delete("/:id", auth, async (req, res) => {
+  const user = (req as RequestWithUser).user;
   try {
-    const Albums = await Album.find({ artist: req.params.id });
-    if (Albums.length) {
-      Albums.map(async (el) => await Track.deleteMany({ album: el._id }));
+    let deleted;
+    if (user.role === "admin") {
+      deleted = await Artist.deleteOne({ _id: req.params.id });
+    } else {
+      deleted = await Artist.deleteOne({
+        _id: req.params.id,
+        author: user._id,
+        isPublished: false,
+      });
     }
-    await Album.deleteMany({ artist: req.params.id });
-    await Artist.deleteOne({ _id: req.params.id });
-    return res.send({ message: "deleted" });
+    if (deleted.deletedCount === 1) {
+      const Albums = await Album.find({ artist: req.params.id });
+      if (Albums.length) {
+        Albums.map(async (el) => await Track.deleteMany({ album: el._id }));
+        await Album.deleteMany({ artist: req.params.id });
+      }
+      return res.send({ message: "deleted" });
+    } else {
+      res.status(404).send({ message: "cant delete" });
+    }
   } catch {
     return res.sendStatus(500);
   }

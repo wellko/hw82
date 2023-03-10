@@ -19,3 +19,21 @@ export const createArtist = createAsyncThunk<Artist, ArtistMutation>('Artist/new
     return e;
   }
 });
+
+export const publicArtist = createAsyncThunk<Artist, string>('Artist/public', async (arg) => {
+  try {
+    const response = await axiosApi.patch('/artists/' + arg + '/togglePublished');
+    return response.data;
+  } catch (e) {
+    return e;
+  }
+});
+
+export const deleteArtist = createAsyncThunk<Artist, string>('Artist/delete', async (arg) => {
+  try {
+    const response = await axiosApi.delete('/artists/' + arg);
+    return response.data;
+  } catch (e) {
+    return e;
+  }
+});

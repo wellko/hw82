@@ -19,18 +19,18 @@ const run = async () => {
     console.log("Collections were not present, skipping drop...");
   }
 
-  await User.create(
+  const [user1, user2] = await User.create(
     {
       username: "admin",
       password: "admin",
       role: "admin",
-      token: "some token",
+      token: "admin",
     },
     {
       username: "user",
       password: "user",
       role: "user",
-      token: "some token 2",
+      token: "user",
     }
   );
 
@@ -40,17 +40,20 @@ const run = async () => {
       photo: "images/5552a635-7f5e-4683-8a7e-e19bb6919be3.jpg",
       info: "American pop-rock group",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Ed Sheeran",
       photo: "images/62fbeea7-f4fc-4d1a-9815-294fd4edf162.jpg",
       info: "English singer-songwriter",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "2pac",
       photo: "images/90c7fcc7-b362-4704-9e63-f8d97da076c8.jpg",
       info: "Raper",
+      author: user2._id,
     }
   );
 
@@ -61,6 +64,7 @@ const run = async () => {
       photo: "images/f73f43ad-9260-4c7f-8fcc-9887b35dde5f.jpg",
       artist: artist1._id,
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Hands All Over",
@@ -68,6 +72,7 @@ const run = async () => {
       photo: "images/8ca8c379-f401-4336-b405-1b379a7603ef.jpg",
       artist: artist1._id,
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "÷",
@@ -75,6 +80,7 @@ const run = async () => {
       photo: "images/825fa97f-f0fa-4574-8e7c-f58ba8fad277.png",
       artist: artist2._id,
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "=",
@@ -82,12 +88,14 @@ const run = async () => {
       photo: "images/ecaf37a0-8418-462c-89e5-5fb9fb6e4f01.jpg",
       artist: artist2._id,
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Me Against the World",
       year: 1995,
       photo: "images/b900f149-55d1-41e9-8208-3368fe227714.jpg",
       artist: artist3._id,
+      author: user2._id,
     }
   );
 
@@ -99,6 +107,7 @@ const run = async () => {
       numberInAlbum: 1,
       videoId: "rV8NHsmVMPE",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "This Love",
@@ -107,6 +116,7 @@ const run = async () => {
       numberInAlbum: 2,
       videoId: "XPpTgCho5ZA",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Shiver",
@@ -115,6 +125,7 @@ const run = async () => {
       numberInAlbum: 3,
       videoId: "wXpS0eArMVQ",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "She Will Be Loved",
@@ -123,6 +134,7 @@ const run = async () => {
       numberInAlbum: 4,
       videoId: "nIjVuRTm-dc",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Tangled",
@@ -131,6 +143,7 @@ const run = async () => {
       numberInAlbum: 5,
       videoId: "2dqri2hjIik	",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Misery",
@@ -139,6 +152,7 @@ const run = async () => {
       numberInAlbum: 1,
       videoId: "6g6g2mvItp4",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Give a Little More",
@@ -147,6 +161,7 @@ const run = async () => {
       numberInAlbum: 2,
       videoId: "BP1PsqBmbvM",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Stutter",
@@ -155,6 +170,7 @@ const run = async () => {
       numberInAlbum: 3,
       videoId: "l9CZr10ebLQ",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Don't Know Nothing",
@@ -163,6 +179,7 @@ const run = async () => {
       numberInAlbum: 4,
       videoId: "SteFI_xGl90",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Never Gonna Leave This Bed",
@@ -171,6 +188,7 @@ const run = async () => {
       numberInAlbum: 5,
       videoId: "ADmCFmYLns4",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Eraser",
@@ -179,6 +197,7 @@ const run = async () => {
       numberInAlbum: 1,
       videoId: "OjGrcJ4lZCc",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Castle on the Hill",
@@ -187,6 +206,7 @@ const run = async () => {
       numberInAlbum: 2,
       videoId: "K0ibBPhiaG0",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Dive",
@@ -195,6 +215,7 @@ const run = async () => {
       numberInAlbum: 3,
       videoId: "Wv2rLZmbPMA",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Shape of You",
@@ -203,6 +224,7 @@ const run = async () => {
       numberInAlbum: 4,
       videoId: "JGwWNGJdvx8",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Perfect",
@@ -211,6 +233,7 @@ const run = async () => {
       numberInAlbum: 5,
       videoId: "2Vv-BfVoq4g",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Tides",
@@ -219,6 +242,7 @@ const run = async () => {
       numberInAlbum: 1,
       videoId: "P_kRTqaD8Mc",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Shivers",
@@ -227,6 +251,7 @@ const run = async () => {
       numberInAlbum: 2,
       videoId: "",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "First Times",
@@ -235,6 +260,7 @@ const run = async () => {
       numberInAlbum: 3,
       videoId: "",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Bad Habits",
@@ -243,6 +269,7 @@ const run = async () => {
       numberInAlbum: 4,
       videoId: "",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "Overpass Graffiti",
@@ -251,6 +278,7 @@ const run = async () => {
       numberInAlbum: 5,
       videoId: "",
       isPublished: true,
+      author: user1._id,
     },
     {
       name: "If I Die 2Nite",
@@ -258,6 +286,7 @@ const run = async () => {
       album: album5._id,
       numberInAlbum: 2,
       videoId: "",
+      author: user2._id,
     },
     {
       name: "Dear Mama",
@@ -265,6 +294,7 @@ const run = async () => {
       album: album5._id,
       numberInAlbum: 9,
       videoId: "",
+      author: user2._id,
     },
     {
       name: "Old School",
@@ -272,6 +302,7 @@ const run = async () => {
       album: album5._id,
       numberInAlbum: 12,
       videoId: "",
+      author: user2._id,
     }
   );
   await db.close();

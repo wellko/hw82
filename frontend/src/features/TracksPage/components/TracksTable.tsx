@@ -9,6 +9,9 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { selectStatusOfPostingHistory } from '../../TrackHistory/TrackHistorySlice';
 import { LoadingButton } from '@mui/lab';
+import { selectStatusOfDeletingTrack, selectStatusOfPostingTrack } from '../TrackPageSlice';
+import { deleteTrack, getTracks, publicTrack } from '../TrackPageThunks';
+import { useNavigate } from 'react-router-dom';
 
 interface state {
   tracks: Track[];
@@ -18,10 +21,21 @@ const TracksTable: React.FC<state> = ({ tracks }) => {
   const [open, setOpen] = React.useState(false);
   const [video, setVideo] = React.useState<string>('');
   const posting = useAppSelector(selectStatusOfPostingHistory);
+  const loading = useAppSelector(selectStatusOfPostingTrack);
+  const deleting = useAppSelector(selectStatusOfDeletingTrack);
+  const navigate = useNavigate();
   const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   const handleClose = () => {
     setOpen(false);
+  };
+  const onPublic = async (el: Track) => {
+    await dispatch(publicTrack(el._id));
+    await dispatch(getTracks(el.album._id));
+  };
+  const onDelete = async (el: Track) => {
+    await dispatch(deleteTrack(el._id));
+    navigate('/');
   };
   const playSong = async (data: HistoryData, id: string | undefined) => {
     dispatch(postHistory(data));
@@ -42,7 +56,14 @@ const TracksTable: React.FC<state> = ({ tracks }) => {
               <TableCell>number of track</TableCell>
               <TableCell align="right">name of track</TableCell>
               <TableCell align="right">duration</TableCell>
-              {user ? <TableCell align="right">Play</TableCell> : ''}
+              {user && (
+                <>
+                  <TableCell align="center">Play</TableCell>
+                  <TableCell align="center">Delete</TableCell>{' '}
+                </>
+              )}
+              <TableCell>Status</TableCell>
+              {user?.role === 'admin' && <TableCell>Public</TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -53,14 +74,36 @@ const TracksTable: React.FC<state> = ({ tracks }) => {
                 </TableCell>
                 <TableCell align="right">{el.name}</TableCell>
                 <TableCell align="right">{el.duration}</TableCell>
-                {user ? (
-                  <TableCell align="right">
-                    <LoadingButton loading={posting} onClick={() => playSong({ track: el._id }, el.videoId)}>
-                      {el.videoId ? <YouTubeIcon /> : <PlayCircleIcon />}
+                {user && (
+                  <>
+                    <TableCell align="center">
+                      <LoadingButton
+                        disabled={!el.isPublished}
+                        loading={posting}
+                        onClick={() => playSong({ track: el._id }, el.videoId)}
+                      >
+                        {el.videoId ? <YouTubeIcon /> : <PlayCircleIcon />}
+                      </LoadingButton>
+                    </TableCell>
+                    <TableCell align="center">
+                      <LoadingButton
+                        disabled={user.role !== 'admin' && el.isPublished}
+                        loading={deleting}
+                        onClick={() => onDelete(el)}
+                      >
+                        Delete
+                      </LoadingButton>
+                    </TableCell>
+                  </>
+                )}
+                <TableCell width="15%">{el.isPublished ? 'Published' : 'Unpublished'}</TableCell>
+                {user?.role === 'admin' && (
+                  <TableCell>
+                    <LoadingButton onClick={() => onPublic(el)} loading={loading}>
+                      {' '}
+                      toggle{' '}
                     </LoadingButton>
                   </TableCell>
-                ) : (
-                  ''
                 )}
               </TableRow>
             ))}

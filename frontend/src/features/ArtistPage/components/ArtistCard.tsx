@@ -59,11 +59,12 @@ const ArtistCard: React.FC<state> = ({ artist }) => {
             </LoadingButton>
           </Box>
         )}
-        {user && !artist.isPublished && (
-          <LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
-            Delete
-          </LoadingButton>
-        )}
+        {user?.role === 'admin' ||
+          (user?._id === artist.author && !artist.isPublished && (
+            <LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
+              Delete
+            </LoadingButton>
+          ))}
       </CardContent>
     </Card>
   );

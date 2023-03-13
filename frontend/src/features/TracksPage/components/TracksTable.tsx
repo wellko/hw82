@@ -86,11 +86,7 @@ const TracksTable: React.FC<state> = ({ tracks }) => {
                       </LoadingButton>
                     </TableCell>
                     <TableCell align="center">
-                      <LoadingButton
-                        disabled={user.role !== 'admin' && el.isPublished}
-                        loading={deleting}
-                        onClick={() => onDelete(el)}
-                      >
+                      <LoadingButton disabled={user.role !== 'admin'} loading={deleting} onClick={() => onDelete(el)}>
                         Delete
                       </LoadingButton>
                     </TableCell>

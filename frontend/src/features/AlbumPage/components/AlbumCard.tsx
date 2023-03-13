@@ -52,17 +52,25 @@ const AlbumCard: React.FC<props> = ({ album }) => {
             Unpublished
           </Typography>
         )}
-        {user?.role === 'admin' && (
+        {user?.role === 'admin' && !album.isPublished && (
           <Box mb={2}>
             <LoadingButton variant="contained" onClick={onPublic} loading={loading}>
-              Publish toggle
+              Public
             </LoadingButton>
           </Box>
         )}
-        {user && !album.isPublished && (
+        {user?.role === 'admin' ? (
           <LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
             Delete
           </LoadingButton>
+        ) : (
+          user &&
+          !album.isPublished &&
+          user._id === album.author && (
+            <LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
+              Delete
+            </LoadingButton>
+          )
         )}
       </CardContent>
     </Card>

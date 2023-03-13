@@ -3,10 +3,11 @@ export interface Artist {
   photo: string | null;
   info: string;
   _id: string;
+  author: string;
   isPublished: boolean;
 }
 
-export type ArtistMutation = Omit<Artist, '_id' | 'isPublished'>;
+export type ArtistMutation = Omit<Artist, '_id' | 'isPublished' | 'author'>;
 
 export interface Album {
   _id: string;
@@ -14,6 +15,7 @@ export interface Album {
   year: number;
   photo: string | null;
   artist: Artist;
+  author: string;
   isPublished: boolean;
 }
 
@@ -31,6 +33,7 @@ export interface Track {
   videoId?: string;
   duration: string;
   album: Album;
+  author: string;
   isPublished: boolean;
 }
 

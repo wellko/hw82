@@ -14,9 +14,10 @@ import {
   Typography,
 } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { login } from './UsersThunks';
+import { googleLogin, login } from './UsersThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectLoginError, selectLoginLoading } from './UsersSlice';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [state, setState] = useState<LoginMutation>({
@@ -35,6 +36,11 @@ const Login = () => {
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     await dispatch(login(state)).unwrap();
+    navigate('/');
+  };
+
+  const googleLoginHandler = async (credential: string) => {
+    await dispatch(googleLogin(credential)).unwrap();
     navigate('/');
   };
 
@@ -92,6 +98,18 @@ const Login = () => {
                 Or sign up
               </Link>
             </Grid>
+          </Grid>
+          <Grid item sx={{ pt: 5 }}>
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                if (credentialResponse.credential) {
+                  void googleLoginHandler(credentialResponse.credential);
+                }
+              }}
+              onError={() => {
+                console.log('Login Failed');
+              }}
+            />
           </Grid>
         </Box>
       </Box>

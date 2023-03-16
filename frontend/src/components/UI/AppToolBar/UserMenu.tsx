@@ -18,8 +18,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-
-  let imageUrl;
+  let imageUrl = '';
   if (user.avatar) {
     imageUrl = user.avatar;
   }

@@ -13,7 +13,15 @@ export const getArtists = createAsyncThunk<Artist[]>('Artist/getAll', async () =
 
 export const createArtist = createAsyncThunk<Artist, ArtistMutation>('Artist/new', async (arg) => {
   try {
-    const response = await axiosApi.post('/artists', arg);
+    const formData = new FormData();
+    const keys = Object.keys(arg) as (keyof ArtistMutation)[];
+    keys.forEach((key) => {
+      const value = arg[key];
+      if (value !== null) {
+        formData.append(key, value);
+      }
+    });
+    const response = await axiosApi.post('/artists', formData);
     return response.data;
   } catch (e) {
     return e;

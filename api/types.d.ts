@@ -41,4 +41,5 @@ export interface IUser {
   role: string;
   displayName?: string;
   googleID?: string;
+  avatar?: string;
 }

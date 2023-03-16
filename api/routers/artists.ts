@@ -8,6 +8,7 @@ import { ArtistData } from "../types";
 import Track from "../models/Track";
 import Album from "../models/Album";
 import role from "../middleware/role";
+import { promises as fs } from "fs";
 
 const artistRouter = express.Router();
 
@@ -38,6 +39,9 @@ artistRouter.post("/", auth, imagesUpload.single("photo"), async (req, res) => {
     });
     return res.send(artist);
   } catch (error) {
+    if (req.file) {
+      await fs.unlink(req.file.path);
+    }
     return res.status(400).send(error);
   }
 });

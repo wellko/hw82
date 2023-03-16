@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../../app/hooks';
 import { useNavigate } from 'react-router-dom';
 import { getArtists } from '../../../features/ArtistPage/ArtistPageThunks';
 import { logoutAction } from '../../../features/users/UsersThunks';
+import { apiUrl } from '../../../constants';
 
 interface Props {
   user: User;
@@ -18,14 +19,20 @@ const UserMenu: React.FC<Props> = ({ user }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  let imageUrl = user.avatar;
+
+  if (user.avatar?.indexOf('images') !== -1) {
+    imageUrl = apiUrl + user.avatar;
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };
 
   return (
     <>
-      <Button onClick={handleClick} color="inherit">
-        Hello, {user.username}
+      <img alt="avatar" src={user.avatar ? imageUrl! : undefined} width="50px" height="50px" />
+      <Button sx={{ paddingBottom: '10px' }} onClick={handleClick} color="inherit">
+        Hello, {user.displayName}
       </Button>
       <Menu anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose}>
         <MenuItem

@@ -13,7 +13,15 @@ export const getAlbums = createAsyncThunk<Album[], string>('Album/getAll', async
 
 export const createAlbum = createAsyncThunk<Album, AlbumMutation>('Album/new', async (arg) => {
   try {
-    const response = await axiosApi.post('/albums', arg);
+    const formData = new FormData();
+    const keys = Object.keys(arg) as (keyof AlbumMutation)[];
+    keys.forEach((key) => {
+      const value = arg[key];
+      if (value !== null) {
+        formData.append(key, value);
+      }
+    });
+    const response = await axiosApi.post('/albums', formData);
     return response.data;
   } catch (e) {
     return e;

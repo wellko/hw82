@@ -23,12 +23,14 @@ const run = async () => {
     {
       username: "admin",
       password: "admin",
+      displayName: "admin",
       role: "admin",
       token: "admin",
     },
     {
       username: "user",
       password: "user",
+      displayName: "user",
       role: "user",
       token: "user",
     }

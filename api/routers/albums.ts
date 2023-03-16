@@ -7,6 +7,7 @@ import { HydratedDocument } from "mongoose";
 import { AlbumData } from "../types";
 import Track from "../models/Track";
 import role from "../middleware/role";
+import { promises as fs } from "fs";
 
 const albumRouter = express.Router();
 
@@ -22,6 +23,9 @@ albumRouter.post("/", auth, imagesUpload.single("photo"), async (req, res) => {
     });
     return res.send(album);
   } catch (error) {
+    if (req.file) {
+      await fs.unlink(req.file.path);
+    }
     return res.status(400).send(error);
   }
 });

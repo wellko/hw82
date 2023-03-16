@@ -5,21 +5,28 @@ import auth, { RequestWithUser } from "../middleware/auth";
 import { OAuth2Client } from "google-auth-library";
 import config from "../config";
 import { randomUUID } from "crypto";
+import { imagesUpload } from "../multer";
+import { promises as fs } from "fs";
 
 const usersRouter = express.Router();
 
 const client = new OAuth2Client(config.google.clientId);
 
-usersRouter.post("/", async (req, res, next) => {
+usersRouter.post("/", imagesUpload.single("avatar"), async (req, res, next) => {
   try {
     const user = new User({
       username: req.body.username,
       password: req.body.password,
+      displayName: req.body.displayName,
+      avatar: req.file ? req.file.filename : null,
     });
     user.generateToken();
     await user.save();
     return res.send({ message: "registration complete!", user });
   } catch (error) {
+    if (req.file) {
+      await fs.unlink(req.file.path);
+    }
     if (error instanceof Error.ValidationError) {
       return res.status(400).send(error);
     }
@@ -54,6 +61,7 @@ usersRouter.post("/google", async (req, res, next) => {
     const email = payload["email"];
     const googleId = payload["sub"];
     const displayName = payload["name"];
+    const avatar = payload["picture"];
     if (!email) {
       return res
         .status(400)
@@ -66,6 +74,7 @@ usersRouter.post("/google", async (req, res, next) => {
         password: randomUUID(),
         googleID: googleId,
         displayName,
+        avatar,
       });
     }
     user.generateToken();

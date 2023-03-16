@@ -6,6 +6,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectRegisterError, selectRegisterLoading } from './UsersSlice';
 import { register } from './UsersThunks';
+import FileInput from '../../components/UI/FileInput/FileInput';
 
 const Register = () => {
   const dispatch = useAppDispatch();
@@ -16,11 +17,21 @@ const Register = () => {
   const [state, setState] = useState<RegisterMutation>({
     username: '',
     password: '',
+    avatar: null,
+    displayName: '',
   });
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setState((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const fileInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = e.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: files && files[0] ? files[0] : null,
+    }));
   };
 
   const submitFormHandler = async (event: React.FormEvent) => {
@@ -84,6 +95,20 @@ const Register = () => {
                 error={Boolean(getFieldError('password'))}
                 helperText={getFieldError('password')}
               />
+            </Grid>
+            <Grid container item xs={12}>
+              <TextField
+                sx={{ margin: 'auto' }}
+                name="displayName"
+                label="Display name"
+                value={state.displayName}
+                onChange={inputChangeHandler}
+                error={Boolean(getFieldError('displayName'))}
+                helperText={getFieldError('displayName')}
+              />
+            </Grid>
+            <Grid container item xs={12}>
+              <FileInput label="Image" onChange={fileInputChangeHandler} name="avatar" type="image/*" />
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

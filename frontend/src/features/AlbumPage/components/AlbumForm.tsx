@@ -30,7 +30,7 @@ const AlbumForm = () => {
   };
   const [state, setState] = useState<AlbumMutation>({
     name: '',
-    year: 1900,
+    year: '1900',
     photo: null,
     artist: '',
   });
@@ -38,7 +38,7 @@ const AlbumForm = () => {
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setState((prevState) => {
-      return { ...prevState, [name]: value };
+      return { ...prevState, [name]: value.toString() };
     });
   };
 

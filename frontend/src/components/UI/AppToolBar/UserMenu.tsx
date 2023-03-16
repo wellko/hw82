@@ -19,7 +19,10 @@ const UserMenu: React.FC<Props> = ({ user }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  let imageUrl = user.avatar;
+  let imageUrl;
+  if (user.avatar) {
+    imageUrl = user.avatar;
+  }
 
   if (user.avatar?.indexOf('images') !== -1) {
     imageUrl = apiUrl + user.avatar;
@@ -30,7 +33,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 
   return (
     <>
-      <img alt="avatar" src={user.avatar ? imageUrl! : undefined} width="50px" height="50px" />
+      <img alt="avatar" src={user.avatar ? imageUrl : undefined} width="50px" height="50px" />
       <Button sx={{ paddingBottom: '10px' }} onClick={handleClick} color="inherit">
         Hello, {user.displayName}
       </Button>

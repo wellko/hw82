@@ -8,7 +8,7 @@ interface IUserMethods {
   checkPassword(password: string): Promise<boolean>;
   generateToken(): void;
 }
-type UserModel = Model<IUser, {}, IUserMethods>;
+type UserModel = Model<IUser, object, IUserMethods>;
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
   username: {
@@ -24,7 +24,7 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
         const user: HydratedDocument<IUser> | null = await User.findOne({
           username,
         });
-        return !Boolean(user);
+        return !user;
       },
       message: "This user is already registered",
     },
@@ -55,13 +55,12 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
 UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   const salt = await bcrypt.genSalt(SALT_WORK_FACTOR);
-  const hash = await bcrypt.hash(this.password, salt);
-  this.password = hash;
+  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
 UserSchema.set("toJSON", {
-  transform: (doc, ret, options) => {
+  transform: (doc, ret) => {
     delete ret.password;
     return ret;
   },

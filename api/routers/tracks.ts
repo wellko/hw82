@@ -1,7 +1,6 @@
 import express from "express";
 import { ArtistData, findData, TrackData } from "../types";
 import Track from "../models/Track";
-import artist from "../models/Artist";
 import Artist from "../models/Artist";
 import auth, { RequestWithUser } from "../middleware/auth";
 import permit from "../middleware/permit";

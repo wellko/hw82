@@ -8,6 +8,7 @@ import { selectUser } from '../../users/UsersSlice';
 import { LoadingButton } from '@mui/lab';
 import { selectStatusOfDeletingAlbum, selectStatusOfPostingAlbum } from '../AlbumPageSlice';
 import { deleteAlbum, getAlbums, publicAlbum } from '../AlbumPageThunks';
+import noImage from '../../../assets/noimage.jpg';
 
 interface props {
   album: Album;
@@ -18,7 +19,13 @@ const AlbumCard: React.FC<props> = ({ album }) => {
   const loading = useAppSelector(selectStatusOfPostingAlbum);
   const deleting = useAppSelector(selectStatusOfDeletingAlbum);
   const dispatch = useAppDispatch();
-  const ImgUrl = apiUrl + album.photo;
+  let ImgUrl;
+  if (album.photo) {
+    ImgUrl = apiUrl + album.photo;
+  } else {
+    ImgUrl = noImage;
+  }
+
   const navigate = useNavigate();
 
   const onPublic = async () => {

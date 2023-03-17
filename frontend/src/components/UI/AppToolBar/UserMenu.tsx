@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { getArtists } from '../../../features/ArtistPage/ArtistPageThunks';
 import { logoutAction } from '../../../features/users/UsersThunks';
 import { apiUrl } from '../../../constants';
+import noImage from '../../../assets/noimage.jpg';
 
 interface Props {
   user: User;
@@ -32,7 +33,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
 
   return (
     <>
-      <img alt="avatar" src={user.avatar ? imageUrl : undefined} width="50px" height="50px" />
+      <img alt="avatar" src={user.avatar ? imageUrl : noImage} width="50px" height="50px" />
       <Button sx={{ paddingBottom: '10px' }} onClick={handleClick} color="inherit">
         Hello, {user.displayName}
       </Button>

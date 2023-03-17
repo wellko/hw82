@@ -84,8 +84,10 @@ const AlbumForm = () => {
           />
         </Grid>
 
-        <Grid container item xs={12}>
-          <FileInput label="Image" onChange={fileInputChangeHandler} name="photo" type="image/*" />
+        <Grid container item xs={12} justifyContent="center">
+          <Grid item xs={6}>
+            <FileInput label="Image" onChange={fileInputChangeHandler} name="photo" type="image/*" />
+          </Grid>
         </Grid>
 
         <Grid container item xs={12}>

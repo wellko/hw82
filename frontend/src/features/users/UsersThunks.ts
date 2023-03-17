@@ -3,6 +3,7 @@ import { GlobalError, LoginMutation, RegisterMutation, RegisterResponse, User, V
 import { isAxiosError } from 'axios';
 import axiosApi from '../../axios-api';
 import { logOut } from './UsersSlice';
+import { ProfileSuccessResponse } from '@greatsumini/react-facebook-login';
 
 export const register = createAsyncThunk<User, RegisterMutation, { rejectValue: ValidationError }>(
   'users/register',
@@ -52,6 +53,21 @@ export const googleLogin = createAsyncThunk<User, string, { rejectValue: GlobalE
   async (credential, { rejectWithValue }) => {
     try {
       const response = await axiosApi.post<RegisterResponse>('/users/google', { credential });
+      return response.data.user;
+    } catch (e) {
+      if (isAxiosError(e) && e.response && e.response.status === 400) {
+        return rejectWithValue(e.response.data as GlobalError);
+      }
+      throw e;
+    }
+  },
+);
+
+export const FBLogin = createAsyncThunk<User, ProfileSuccessResponse, { rejectValue: GlobalError }>(
+  'users/FBLogin',
+  async (arg, { rejectWithValue }) => {
+    try {
+      const response = await axiosApi.post<RegisterResponse>('/users/fb', arg);
       return response.data.user;
     } catch (e) {
       if (isAxiosError(e) && e.response && e.response.status === 400) {

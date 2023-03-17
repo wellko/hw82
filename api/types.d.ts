@@ -42,4 +42,5 @@ export interface IUser {
   displayName?: string;
   googleID?: string;
   avatar?: string;
+  FaceBookID? : string;
 }

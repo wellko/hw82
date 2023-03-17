@@ -14,10 +14,12 @@ import {
   Typography,
 } from '@mui/material';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
-import { googleLogin, login } from './UsersThunks';
+import { FBLogin, googleLogin, login } from './UsersThunks';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectLoginError, selectLoginLoading } from './UsersSlice';
 import { GoogleLogin } from '@react-oauth/google';
+import { FB_CLIENT_ID } from '../../constants';
+import FacebookLogin, { ProfileSuccessResponse } from '@greatsumini/react-facebook-login';
 
 const Login = () => {
   const [state, setState] = useState<LoginMutation>({
@@ -41,6 +43,11 @@ const Login = () => {
 
   const googleLoginHandler = async (credential: string) => {
     await dispatch(googleLogin(credential)).unwrap();
+    navigate('/');
+  };
+
+  const FBLoginHandler = async (arg: ProfileSuccessResponse) => {
+    await dispatch(FBLogin(arg)).unwrap();
     navigate('/');
   };
 
@@ -108,6 +115,24 @@ const Login = () => {
               }}
               onError={() => {
                 console.log('Login Failed');
+              }}
+            />
+            <FacebookLogin
+              appId={FB_CLIENT_ID}
+              onFail={(error) => {
+                console.log('Login Failed!', error);
+              }}
+              onProfileSuccess={(response) => {
+                void FBLoginHandler(response);
+                console.log(response);
+              }}
+              style={{
+                backgroundColor: '#4267b2',
+                color: '#fff',
+                fontSize: '16px',
+                padding: '12px 24px',
+                border: 'none',
+                borderRadius: '4px',
               }}
             />
           </Grid>

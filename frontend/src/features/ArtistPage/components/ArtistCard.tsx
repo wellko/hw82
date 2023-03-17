@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { selectUser } from '../../users/UsersSlice';
 import { selectStatusOfDeletingArtist, selectStatusOfPostingArtist } from '../ArtistPageSlice';
 import { deleteArtist, getArtists, publicArtist } from '../ArtistPageThunks';
+import noImage from '../../../assets/noimage.jpg';
 
 interface state {
   artist: Artist;
@@ -18,7 +19,12 @@ const ArtistCard: React.FC<state> = ({ artist }) => {
   const loading = useAppSelector(selectStatusOfPostingArtist);
   const deleting = useAppSelector(selectStatusOfDeletingArtist);
   const dispatch = useAppDispatch();
-  const ImgUrl = apiUrl + artist.photo;
+  let ImgUrl;
+  if (artist.photo) {
+    ImgUrl = apiUrl + artist.photo;
+  } else {
+    ImgUrl = noImage;
+  }
   const navigate = useNavigate();
 
   const onPublic = async () => {
@@ -52,19 +58,20 @@ const ArtistCard: React.FC<state> = ({ artist }) => {
             Unpublished
           </Typography>
         )}
-        {user?.role === 'admin' && (
+        {user?.role === 'admin' && !artist.isPublished && (
           <Box mb={2}>
             <LoadingButton variant="contained" onClick={onPublic} loading={loading}>
               Publish toggle
             </LoadingButton>
           </Box>
         )}
-        {user?.role === 'admin' ||
-          (user?._id === artist.author && !artist.isPublished && (
-            <LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
-              Delete
-            </LoadingButton>
-          ))}
+        {user?.role === 'admin' || (user?._id === artist.author && !artist.isPublished) ? (
+          <LoadingButton variant="contained" onClick={onDelete} loading={deleting}>
+            Delete
+          </LoadingButton>
+        ) : (
+          ''
+        )}
       </CardContent>
     </Card>
   );

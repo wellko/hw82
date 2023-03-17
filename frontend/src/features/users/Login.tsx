@@ -106,35 +106,39 @@ const Login = () => {
               </Link>
             </Grid>
           </Grid>
-          <Grid item sx={{ pt: 5 }}>
-            <GoogleLogin
-              onSuccess={(credentialResponse) => {
-                if (credentialResponse.credential) {
-                  void googleLoginHandler(credentialResponse.credential);
-                }
-              }}
-              onError={() => {
-                console.log('Login Failed');
-              }}
-            />
-            <FacebookLogin
-              appId={FB_CLIENT_ID}
-              onFail={(error) => {
-                console.log('Login Failed!', error);
-              }}
-              onProfileSuccess={(response) => {
-                void FBLoginHandler(response);
-                console.log(response);
-              }}
-              style={{
-                backgroundColor: '#4267b2',
-                color: '#fff',
-                fontSize: '16px',
-                padding: '12px 24px',
-                border: 'none',
-                borderRadius: '4px',
-              }}
-            />
+          <Grid container item sx={{ pt: 5 }} gap={2}>
+            <Grid item xs={6} m="auto">
+              <GoogleLogin
+                onSuccess={(credentialResponse) => {
+                  if (credentialResponse.credential) {
+                    void googleLoginHandler(credentialResponse.credential);
+                  }
+                }}
+                onError={() => {
+                  console.log('Login Failed');
+                }}
+              />
+            </Grid>
+            <Grid item xs={6} m="auto">
+              <FacebookLogin
+                appId={FB_CLIENT_ID}
+                onFail={(error) => {
+                  console.log('Login Failed!', error);
+                }}
+                onProfileSuccess={(response) => {
+                  void FBLoginHandler(response);
+                  console.log(response);
+                }}
+                style={{
+                  backgroundColor: '#4267b2',
+                  color: '#fff',
+                  fontSize: '16px',
+                  padding: '12px 24px',
+                  border: 'none',
+                  borderRadius: '4px',
+                }}
+              />
+            </Grid>
           </Grid>
         </Box>
       </Box>
